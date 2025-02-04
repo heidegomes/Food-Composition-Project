@@ -59,9 +59,14 @@ Antes de começar, certifique-se de ter os seguintes itens instalados:
 
 1. Execute o projeto com o comando dotnet run no terminal ou a partir da sua IDE.
 
-2. Usando o Postman, faça uma requisicição GET no endpoint http://localhost:5057/scrape-food para executar o scraper.
+2. Atualize os dados do banco com o comando:
 
-3. Os dados extraídos são salvos em um banco de dados e podem ser acessados fazendo uma requisição GET nos endpoints http://localhost:5057/api/food e http://localhost:5057/api/food/{code} 
+  ```bash
+  dotnet ef database update
+
+3. Usando o Postman, faça uma requisicição GET no endpoint http://localhost:5057/scrape-food para executar o scraper.
+
+4. Os dados extraídos são salvos em um banco de dados e podem ser acessados fazendo uma requisição GET nos endpoints http://localhost:5057/api/food e http://localhost:5057/api/food/{code} 
 
 ## Exemplo de Saída
  
