@@ -1,6 +1,6 @@
 # Food Composition Scraper
 
-Este projeto é uma aplicação de web scraping que coleta dados sobre a composição dos alimentos a partir do site [TBCA](https://www.tbca.net.br) e armazena essas informações para análise posterior. A aplicação foi desenvolvida utilizando C# com a biblioteca `HtmlAgilityPack` para extrair dados de tabelas HTML.
+Este projeto é uma aplicação de web scraping que coleta dados sobre a composição dos alimentos a partir do site [TBCA](https://www.tbca.net.br) e armazena essas informações num Banco de Dados SQLite. A aplicação foi desenvolvida utilizando C# com a biblioteca `HtmlAgilityPack` para extrair dados de tabelas HTML.
 
 ## Descrição
 
@@ -20,20 +20,21 @@ O projeto realiza scraping em duas páginas da TBCA:
 
 - **Scraping inicial**: Extrai uma lista de produtos alimentícios com seus códigos.
 - **Scraping detalhado**: Para cada código de produto, realiza uma requisição para obter informações mais detalhadas, como componentes e valores nutricionais.
-- **Armazenamento de dados**: Os dados extraídos são armazenados em um objeto `FoodData` para posterior uso e processamento.
+- **Armazenamento de dados**: Os dados extraídos são armazenados em um objeto `FoodData` num banco de dados SQLite.
 
 ## Tecnologias Utilizadas
 
 - **C#**: Linguagem de programação usada para desenvolver a aplicação.
 - **HtmlAgilityPack**: Biblioteca utilizada para manipulação e parsing de HTML.
 - **ASP.NET Core**: Framework utilizado para a criação da aplicação (se necessário para a execução como um serviço).
+- **SQLite**: Banco de dados leve e autônomo utilizado para armazenar e gerenciar os dados extraídos de forma eficiente. Ideal para aplicações que não requerem um servidor de banco de dados completo.
 
 ## Pré-Requisitos
 
 Antes de começar, certifique-se de ter os seguintes itens instalados:
 
 - [.NET SDK](https://dotnet.microsoft.com/download) (versão 5 ou superior)
-- [Visual Studio](https://visualstudio.microsoft.com/) ou qualquer IDE de sua escolha que suporte C#
+- IDE de sua escolha que suporte C#.
 
 ## Instalação
 
@@ -57,23 +58,33 @@ Antes de começar, certifique-se de ter os seguintes itens instalados:
 ## Como Usar
 
 1. Execute o projeto com o comando dotnet run no terminal ou a partir da sua IDE.
-2. O scraping será iniciado automaticamente, coletando os dados das páginas da TBCA.
-3. Os dados extraídos são impressos no console para verificação, ou podem ser armazenados e manipulados conforme a necessidade.
+
+2. Usando o Postman, faça uma requisicição GET no endpoint http://localhost:5057/scrape-food para executar o scraper.
+
+3. Os dados extraídos são salvos em um banco de dados e podem ser acessados fazendo uma requisição GET nos endpoints http://localhost:5057/api/food e http://localhost:5057/api/food/{code} 
 
 ## Exemplo de Saída
-
-Após a execução, os dados extraídos para cada produto serão exibidos no console, como no exemplo abaixo:
-
-  URL: https://www.tbca.net.br/base-dados/int_composicao_estatistica.php?cod_produto=1234
-  Component: Proteína
-  Unit: g
-  ValuePer100g: 10g
-  StandardDeviation: 0.5
-  MinimumValue: 9g
-  MaximumValue: 11g
-  NumberSamples: 100
-  Reference: Estudo XYZ
-  DataType: Média
+ 
+"code": "BRC1139B",
+    "name": "Cogumelo, assado, s/ óleo, c/ sal (média de diferentes tipos)",
+    "scientificName": "",
+    "group": "Vegetais e derivados",
+    "components": [
+        {
+            "id": 72311,
+            "foodCode": "BRC1139B",
+            "component": "Energia",
+            "unit": "kJ",
+            "valuePer100g": "139",
+            "standardDeviation": "-",
+            "minimumValue": "-",
+            "maximumValue": "-",
+            "numberSamples": "-",
+            "reference": "-",
+            "dataType": "Calculado"
+        },
+        ...
+    ]
 
 ## Estrutura do Projeto
 
