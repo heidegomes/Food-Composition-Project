@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Food Composition Frontend
 
-## Getting Started
+Este é um projeto front-end desenvolvido com **Next.js** e **TailwindCSS**, que exibe informações sobre a composição dos alimentos. Ele se conecta ao backend para buscar os dados de composição e exibi-los de maneira interativa.
 
-First, run the development server:
+## Tecnologias Usadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js** (v15.1.6) - Framework React para aplicações web.
+- **React** (v19.0.0) - Biblioteca para construção de interfaces de usuário.
+- **TailwindCSS** (v3.4.17) - Framework de CSS utilitário para estilização rápida.
+- **TypeScript** (v5.7.3) - Superset do JavaScript para maior segurança e produtividade no desenvolvimento.
+- **PostCSS** - Ferramenta para processar CSS.
+- **ESLint** - Ferramenta para linting de código, garantindo consistência e qualidade.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Pré-Requisitos
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Antes de começar, certifique-se de que o backend esteja rodando. O backend é responsável por fornecer os dados de composição dos alimentos e precisa estar disponível para que o front-end funcione corretamente.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Backend
 
-## Learn More
+O backend é uma aplicação de **web scraping** que coleta dados sobre a composição de alimentos e armazena essas informações para análise posterior. Ele foi desenvolvido utilizando **C#** com a biblioteca `HtmlAgilityPack`. Para mais detalhes sobre a instalação e execução do backend, consulte o [README do backend](backend/README.md).
 
-To learn more about Next.js, take a look at the following resources:
+## Instalação (Frontend)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone o repositório para sua máquina local:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   git clone https://github.com/seu-usuario/food-composition-frontend.git
 
-## Deploy on Vercel
+2. Navegue até o diretório do projeto:
+   ```bash
+  cd food-composition-frontend 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Instale as dependências do projeto:
+   ```bash
+   npm install
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Execute o servidor de desenvolvimento:
+  ```bash
+  npm run dev
+
+  A aplicação estará disponível em http://localhost:3000.
+
+  ## Scripts
+
+* npm run dev: Inicia o servidor de desenvolvimento usando o Next.js com o TurboPack.
+* npm run build: Cria uma versão otimizada para produção.
+* npm run start: Inicia a versão de produção da aplicação.
+* npm run lint: Executa o ESLint para garantir a qualidade do código.
+
+  ## Estrutura do Projeto
+
+A estrutura de pastas do projeto é organizada da seguinte forma:
+
+/food-composition-frontend
+├── /src                  # Contém os arquivos principais do projeto
+│   ├── /app              # Contém as páginas e componentes principais da aplicação
+│   │   ├── /_components  # Componentes reutilizáveis
+│   │   │   ├── FoodCard.tsx  # Componente que exibe informações de um alimento
+│   │   │   ├── Footer.tsx    # Componente do rodapé
+│   │   │   └── Header.tsx    # Componente do cabeçalho
+│   │   ├── /aboutUs        # Página "Sobre Nós"
+│   │   │   └── page.tsx    # Arquivo que contém o conteúdo da página sobre nós
+│   │   ├── /api            # Endpoints de API
+│   │   │   └── /food       # Rota específica para alimentação
+│   │   │       └── route.ts    # Lógica da API relacionada à comida
+│   │   ├── /contact        # Página de Contato
+│   │   │   └── page.tsx    # Arquivo que contém o conteúdo da página de contato
+│   │   ├── /food           # Páginas relacionadas a alimentos
+│   │   │   └── /[code]     # Página específica de um alimento com código
+│   │   │       └── page.tsx  # Arquivo da página detalhada do alimento
+│   │   ├── favicon.ico     # Ícone do site
+│   │   ├── globals.css     # Arquivo de estilos globais
+│   │   ├── layout.tsx      # Layout principal da aplicação
+│   │   ├── page.tsx        # Página inicial (home)
+│   │   └── types.ts        # Tipos TypeScript para a aplicação
+├── package.json           # Arquivo de dependências e scripts do projeto
+└── tailwind.config.js     # Arquivo de configuração do TailwindCSS
+
+
+## Personalização
+### Estilização
+O projeto usa TailwindCSS para estilização. Você pode personalizar as configurações no arquivo tailwind.config.js para ajustar as cores, fontes e outros aspectos visuais.
+
+### Fontes
+O projeto utiliza fontes personalizadas definidas no layout global para garantir consistência visual e tipográfica.
+
+## Contribuindo
+Contribuições são bem-vindas! Sinta-se à vontade para fazer um fork do repositório, criar uma branch e enviar um pull request com suas melhorias.
+
+1. Faça o fork deste repositório.
+2. Crie uma nova branch (git checkout -b feature/novos-recursos).
+3. Faça suas modificações.
+4. Envie suas alterações (git commit -am 'Adiciona novos recursos').
+5. Envie a branch para o repositório remoto (git push origin feature/novos-recursos).
+6. Crie um pull request.
