@@ -42,10 +42,10 @@ O backend é uma aplicação de **web scraping** que coleta dados sobre a compos
 
 ## Scripts
 
-- **npm run dev:** Inicia o servidor de desenvolvimento usando o Next.js com o TurboPack.
-- **npm run build:** Cria uma versão otimizada para produção.
-- **npm run start:** Inicia a versão de produção da aplicação.
-- **npm run lint:** Executa o ESLint para garantir a qualidade do código.
+- **npm run dev**: Inicia o servidor de desenvolvimento usando o Next.js com o TurboPack.
+- **npm run build**: Cria uma versão otimizada para produção.
+- **npm run start**: Inicia a versão de produção da aplicação.
+- **npm run lint**: Executa o ESLint para garantir a qualidade do código.
 
 ## Estrutura do Projeto
 
@@ -77,19 +77,24 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
 └── tailwind.config.js     # Arquivo de configuração do TailwindCSS
 
 
+
 ## Personalização
+
 ### Estilização
-O projeto usa TailwindCSS para estilização. Você pode personalizar as configurações no arquivo tailwind.config.js para ajustar as cores, fontes e outros aspectos visuais.
+
+O projeto usa TailwindCSS para estilização. Você pode personalizar as configurações no arquivo `tailwind.config.js` para ajustar as cores, fontes e outros aspectos visuais.
 
 ### Fontes
+
 O projeto utiliza fontes personalizadas definidas no layout global para garantir consistência visual e tipográfica.
 
 ## Contribuindo
+
 Contribuições são bem-vindas! Sinta-se à vontade para fazer um fork do repositório, criar uma branch e enviar um pull request com suas melhorias.
 
 1. Faça o fork deste repositório.
-2. Crie uma nova branch (git checkout -b feature/novos-recursos).
+2. Crie uma nova branch (`git checkout -b feature/novos-recursos`).
 3. Faça suas modificações.
-4. Envie suas alterações (git commit -am 'Adiciona novos recursos').
-5. Envie a branch para o repositório remoto (git push origin feature/novos-recursos).
+4. Envie suas alterações (`git commit -am 'Adiciona novos recursos'`).
+5. Envie a branch para o repositório remoto (`git push origin feature/novos-recursos`).
 6. Crie um pull request.
