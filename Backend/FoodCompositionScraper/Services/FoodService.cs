@@ -1,5 +1,6 @@
 using FoodCompositionScraper.Data;
 using FoodCompositionScraper.Models;
+using FoodCompositionScraper.Utils;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,11 +16,24 @@ namespace FoodCompositionScraper.Services
             _context = context;
         }
 
-        public async Task<List<FoodData>> GetFoodsAsync()
+        public async Task<PagedResult<FoodData>> GetFoodsAsync(int page,int size)
         {
-            return await _context.Foods
+            var totalItems = await _context.Foods.CountAsync();
+
+            var foods = await _context.Foods
                 .Include(f => f.Components)
+                .Skip((page - 1) * size)
+                .Take(size)
                 .ToListAsync();
+
+            return new PagedResult<FoodData>
+            {
+                Items = foods,
+                TotalItems = totalItems,
+                TotalPages = (int)Math.Ceiling(totalItems / (double)size),
+                PageNumber = page,
+                PageSize = size
+            };
         }
 
         public async Task<FoodData> GetFoodByIdAsync(int id)

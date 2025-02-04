@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FoodCompositionScraper.Services; // Caso o WebScraperService esteja neste namespace
 using FoodCompositionScraper.Models;
+using FoodCompositionScraper.Utils;
 using Microsoft.EntityFrameworkCore; // Para ToListAsync e FindAsync
 
 namespace FoodCompositionScraper.Controllers
@@ -22,17 +23,23 @@ namespace FoodCompositionScraper.Controllers
         }
 
         // Endpoint para obter todos os dados de alimentos
-        [HttpGet] // Rota: /api/food
-        public async Task<ActionResult<IEnumerable<FoodData>>> GetFoods()
+        [HttpGet] // Rota: /api/food?page=1&size=10
+        public async Task<ActionResult<PagedResult<FoodData>>> GetFoods([FromQuery] int page = 1, [FromQuery] int size = 10)
+        // public async Task<ActionResult<IEnumerable<FoodData>>> GetFoods([FromQuery] int page = 1, [FromQuery] int size = 10)
         {
+            if (page <= 0 || size <= 0)
+            {
+                return BadRequest("Os parâmetros 'page' e 'size' devem ser maiores que zero.");
+            }
+
             // Verifica se o WebScraperService tem uma lista ou coleção de Foods
-            var foods = await _foodService.GetFoodsAsync();
-            if (foods == null || foods.Count == 0)
+            var pagedResult = await _foodService.GetFoodsAsync(page, size);
+            if (pagedResult.TotalItems == 0)
             {
                 return NotFound("Nenhum alimento encontrado.");
             }
 
-            return Ok(foods);
+            return Ok(pagedResult);
         }
 
         // Endpoint para obter um alimento específico pelo código

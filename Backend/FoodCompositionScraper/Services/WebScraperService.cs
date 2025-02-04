@@ -15,7 +15,7 @@ namespace FoodCompositionScraper.Services
             _foodService = foodService;
         }
 
-        public async Task<List<FoodData>> ScrapeFoodDataAsync()
+        public async Task<int> ScrapeFoodDataAsync()
         {
             var foodList = new List<FoodData>();
             var web = new HtmlWeb();
