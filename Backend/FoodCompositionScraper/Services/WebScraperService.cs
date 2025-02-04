@@ -8,7 +8,6 @@ namespace FoodCompositionScraper.Services
 {
     public class WebScraperService
     {
-        private readonly string _url = "https://www.tbca.net.br/base-dados/composicao_estatistica.php?pagina=1&atuald=1#";
         private readonly FoodService _foodService;
 
         public WebScraperService(FoodService foodService)
@@ -20,31 +19,41 @@ namespace FoodCompositionScraper.Services
         {
             var foodList = new List<FoodData>();
             var web = new HtmlWeb();
-            var doc = await web.LoadFromWebAsync(_url);
+            int pageNumber = 1;
 
-            var rows = doc.DocumentNode.SelectNodes("//table//tr");
-
-            // Adicionar checagem de null para rows
-            if (rows == null)
+            while (true) 
             {
-                throw new Exception("Não foi possível encontrar as linhas da tabela.");
-            }
+                Console.WriteLine($"Extraindo dados da pagina: {pageNumber} ...");
 
-            foreach (var row in rows)
-            {
-                // Leitura das colunas da tabela
-                var columns = row.SelectNodes("td");
-                if (columns != null && columns.Count >= 4)
+                var _url = $"https://www.tbca.net.br/base-dados/composicao_estatistica.php?pagina={pageNumber}&atuald=1#";
+                var doc = await web.LoadFromWebAsync(_url);
+                var rows = doc.DocumentNode.SelectNodes("//table//tr");
+                
+                // Adicionar checagem de null para rows
+                if (rows == null || rows.Count <= 1) 
                 {
-                    foodList.Add(new FoodData
-                    {
-                        Code = columns[0].InnerText.Trim(),
-                        Name = columns[1].InnerText.Trim(),
-                        ScientificName = columns[2].InnerText.Trim(),
-                        Group = columns[3].InnerText.Trim(),
-                        Components = null
-                    });
+                    Console.WriteLine($"Encerrando leitura na pagina: {pageNumber} ...");
+                    break;
                 }
+
+                foreach (var row in rows)
+                {
+                    // Leitura das colunas da tabela
+                    var columns = row.SelectNodes("td");
+                    if (columns != null && columns.Count >= 4)
+                    {
+                        foodList.Add(new FoodData
+                        {
+                            Code = columns[0].InnerText.Trim(),
+                            Name = columns[1].InnerText.Trim(),
+                            ScientificName = columns[2].InnerText.Trim(),
+                            Group = columns[3].InnerText.Trim(),
+                            Components = null
+                        });
+                    }
+                }
+                
+                pageNumber++;
             }
 
             // leitura de cada item associado ao código
@@ -99,7 +108,7 @@ namespace FoodCompositionScraper.Services
 
             await _foodService.AddFoodsAsync(foodList);
 
-            return foodList;
+            return foodList.Count;
         }
     }
 }

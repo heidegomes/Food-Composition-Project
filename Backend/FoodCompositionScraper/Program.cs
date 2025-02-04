@@ -55,8 +55,8 @@ app.MapGet("/", () => "API is running!");
 // Endpoint para chamar o serviço de web scraping
 app.MapGet("/scrape-food", async (WebScraperService scraperService) =>
 {
-    var foodData = await scraperService.ScrapeFoodDataAsync();
-    return Results.Ok(foodData);
+    var qtde = await scraperService.ScrapeFoodDataAsync();
+    return Results.Ok(qtde);
 });
 
 app.Run();
