@@ -77,14 +77,25 @@ Após a execução, os dados extraídos para cada produto serão exibidos no con
 
 ## Estrutura do Projeto
 
-FoodCompositionScraper/
+food-composition-backend/
 │
-├── Program.cs            # Classe principal que executa o scraping
-├── Services/
-│   └── WebScraperService.cs # Serviço responsável pelo scraping e extração de dados
+├── Controllers/
+│   └── FoodController.cs     # Controlador para manipulação de dados sobre alimentos
+├── Data/
+│   └── FoodContext.cs        # Contexto do banco de dados para alimentos
+├── Migrations/
+│   ├── 20250204023858_InitialCreate.Designer.cs   # Arquivo de migração inicial
+│   ├── 20250204023858_InitialCreate.cs            # Arquivo de migração inicial
+│   └── FoodContextModelSnapshot.cs                # Snapshot do modelo do banco de dados
 ├── Models/
-│   └── Food.cs       # Modelo que representa os dados dos alimentos
-└── FoodCompositionScraper.csproj # Arquivo de projeto do .NET
+│   └── FoodData.cs          # Modelo de dados para os alimentos
+├── Properties/
+│   └── launchSettings.json  # Arquivo de configurações para o ambiente de desenvolvimento
+├── Services/
+│   ├── FoodService.cs       # Serviço que lida com a lógica de negócios de alimentos
+│   └── WebScraperService.cs # Serviço para web scraping de dados sobre alimentos
+└── food-composition-backend.csproj # Arquivo de projeto do .NET
+
 
 ## Contribuindo
 
