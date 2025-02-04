@@ -19,11 +19,12 @@ A estrutura do projeto é organizada da seguinte forma:
 - **ASP.NET Core** - Framework usado para construir a aplicação web backend.
 - **HtmlAgilityPack** - Biblioteca utilizada para scraping de dados das páginas da TBCA.
 - **Entity Framework Core** - Para interações com o banco de dados.
+- **SQLite**: Banco de dados leve e autônomo utilizado para armazenar e gerenciar os dados extraídos de forma eficiente. Ideal para aplicações que não requerem um servidor de banco de dados completo.
   
 ## Pré-Requisitos
 
 ### Backend
-O backend é uma aplicação de **web scraping** que coleta dados sobre a composição de alimentos e os armazena para análise posterior. Para que o frontend funcione corretamente, o backend precisa estar rodando. Consulte o [README do backend](food-composition-backend/README.md) para instruções de instalação e execução.
+O backend é uma aplicação de **web scraping** que coleta dados sobre a composição de alimentos e os armazena num banco de dados SQLite. Para que o frontend funcione corretamente, o backend precisa estar rodando. Consulte o [README do backend](food-composition-backend/README.md) para instruções de instalação e execução.
 
 ### Frontend
 O frontend se conecta ao backend para exibir as informações de forma interativa. Certifique-se de que o backend esteja em execução antes de iniciar o frontend.
