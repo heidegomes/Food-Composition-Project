@@ -40,14 +40,14 @@ O backend é uma aplicação de **web scraping** que coleta dados sobre a compos
 
   A aplicação estará disponível em http://localhost:3000.
 
-  ## Scripts
+## Scripts
 
-* npm run dev: Inicia o servidor de desenvolvimento usando o Next.js com o TurboPack.
-* npm run build: Cria uma versão otimizada para produção.
-* npm run start: Inicia a versão de produção da aplicação.
-* npm run lint: Executa o ESLint para garantir a qualidade do código.
+- **npm run dev:** Inicia o servidor de desenvolvimento usando o Next.js com o TurboPack.
+- **npm run build:** Cria uma versão otimizada para produção.
+- **npm run start:** Inicia a versão de produção da aplicação.
+- **npm run lint:** Executa o ESLint para garantir a qualidade do código.
 
-  ## Estrutura do Projeto
+## Estrutura do Projeto
 
 A estrutura de pastas do projeto é organizada da seguinte forma:
 
