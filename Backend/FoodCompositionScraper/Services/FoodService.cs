@@ -17,7 +17,9 @@ namespace FoodCompositionScraper.Services
 
         public async Task<List<FoodData>> GetFoodsAsync()
         {
-            return await _context.Foods.ToListAsync();
+            return await _context.Foods
+                .Include(f => f.Components)
+                .ToListAsync();
         }
 
         public async Task<FoodData> GetFoodByIdAsync(int id)
@@ -27,7 +29,9 @@ namespace FoodCompositionScraper.Services
 
         public async Task<FoodData> GetFoodByCodeAsync(string code)
         {
-            return await _context.Foods.FirstOrDefaultAsync(f => f.Code == code);
+            return await _context.Foods
+                .Include(f => f.Components)
+                .FirstOrDefaultAsync(f => f.Code == code);
         }
         
         // Método para adicionar alimentos ao banco de dados

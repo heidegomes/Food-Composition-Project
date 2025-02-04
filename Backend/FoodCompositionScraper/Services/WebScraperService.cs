@@ -41,7 +41,8 @@ namespace FoodCompositionScraper.Services
                         Code = columns[0].InnerText.Trim(),
                         Name = columns[1].InnerText.Trim(),
                         ScientificName = columns[2].InnerText.Trim(),
-                        Group = columns[3].InnerText.Trim()
+                        Group = columns[3].InnerText.Trim(),
+                        Components = null
                     });
                 }
             }
@@ -64,6 +65,8 @@ namespace FoodCompositionScraper.Services
                     throw new Exception($"Não foi possível encontrar as linhas da tabela do código {urlCode}.");
                 }
 
+                var componentsList = new List<FoodDataComponent>();
+
                 foreach (var row2 in rowsByCode)
                 {
                     // Leitura das colunas da tabela
@@ -71,17 +74,27 @@ namespace FoodCompositionScraper.Services
 
                     if (columns != null && columns.Count >= 9)
                     {
-                        food.Component = columns[0].InnerText.Trim();
-                        food.Unit = columns[1].InnerText.Trim();
-                        food.ValuePer100g = columns[2].InnerText.Trim();
-                        food.StandardDeviation = columns[3].InnerText.Trim();
-                        food.MinimumValue = columns[4].InnerText.Trim();
-                        food.MaximumValue = columns[5].InnerText.Trim();
-                        food.NumberSamples = columns[6].InnerText.Trim();
-                        food.Reference = columns[7].InnerText.Trim();
-                        food.DataType = columns[8].InnerText.Trim();                
+                        var component = new FoodDataComponent
+                        {
+                            FoodCode = food.Code,
+                            Unit = columns[1].InnerText.Trim(),
+                            ValuePer100g = columns[2].InnerText.Trim(),
+                            StandardDeviation = columns[3].InnerText.Trim(),
+                            MinimumValue = columns[4].InnerText.Trim(),
+                            MaximumValue = columns[5].InnerText.Trim(),
+                            NumberSamples = columns[6].InnerText.Trim(),
+                            Reference = columns[7].InnerText.Trim(),
+                            DataType = columns[8].InnerText.Trim(),
+                            Component = !string.IsNullOrWhiteSpace(columns[0].InnerText.Trim()) ? columns[0].InnerText.Trim() : ""
+                        };
+                        componentsList.Add(component);
                     }      
                 }
+
+                if (componentsList.Any())
+                {
+                    food.Components = componentsList;
+                }                
             }
 
             await _foodService.AddFoodsAsync(foodList);

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodCompositionScraper.Migrations
 {
     [DbContext(typeof(FoodContext))]
-    [Migration("20250204010506_InitialCreate")]
+    [Migration("20250204023858_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,29 @@ namespace FoodCompositionScraper.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Group")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ScientificName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("Foods");
+                });
+
+            modelBuilder.Entity("FoodCompositionScraper.Models.FoodDataComponent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Component")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -31,7 +54,7 @@ namespace FoodCompositionScraper.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Group")
+                    b.Property<string>("FoodCode")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -43,19 +66,11 @@ namespace FoodCompositionScraper.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("NumberSamples")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Reference")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ScientificName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -71,9 +86,27 @@ namespace FoodCompositionScraper.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Code");
+                    b.HasKey("Id");
 
-                    b.ToTable("Foods");
+                    b.HasIndex("FoodCode");
+
+                    b.ToTable("FoodDataComponent");
+                });
+
+            modelBuilder.Entity("FoodCompositionScraper.Models.FoodDataComponent", b =>
+                {
+                    b.HasOne("FoodCompositionScraper.Models.FoodData", "FoodData")
+                        .WithMany("Components")
+                        .HasForeignKey("FoodCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FoodData");
+                });
+
+            modelBuilder.Entity("FoodCompositionScraper.Models.FoodData", b =>
+                {
+                    b.Navigation("Components");
                 });
 #pragma warning restore 612, 618
         }
