@@ -1,26 +1,11 @@
-// src/app/page.tsx
 'use client';
 import { useEffect, useState } from "react";
 import FoodCard from "@/app/_components/FoodCard";
+import { FoodData } from "@/app/types";
 
-interface FoodData {
-  Code: string;
-  Name: string;
-  ScientificName: string;
-  Group: string;
-  Component: string;
-  Unit: string;
-  ValuePer100g: string;
-  StandardDeviation: string;
-  MinimumValue: string;
-  MaximumValue: string;
-  NumberSamples: string;
-  Reference: string;
-  DataType: string;
-}
-
-const HomePage = () => {
+export default function HomePage(){
   const [foodData, setFoodData] = useState<FoodData[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,17 +23,27 @@ const HomePage = () => {
     fetchData();
   }, []);
 
+  const filteredFoods = foodData.filter(food =>
+    food.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold text-center mb-8">Food Composition Data</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {foodData.map((food) => (
-          <FoodCard key={food.Code} food={food} />
+      <h1 className="text-4xl text-green-200 font-bold text-center mt-8">Composição Química</h1>
+      <h1 className="text-2xl text-green-200 placeholder:font-bold text-center mb-8">(Informação Estatística)</h1>
+      <input
+        type="text"
+        placeholder="Pesquisar alimentos..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full p-2 mb-4 border rounded-lg bg-green-100 placeholder-green-900/50"
+      />
+      <div className="flex flex-col gap-6">
+        {filteredFoods.map((food) => (
+          <FoodCard key={food.code} food={food} />
         ))}
       </div>
     </div>
   );
 };
 
-export default HomePage;
