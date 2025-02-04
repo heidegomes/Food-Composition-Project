@@ -16,25 +16,31 @@ namespace FoodCompositionScraper.Services
             _context = context;
         }
 
-        public async Task<PagedResult<FoodData>> GetFoodsAsync(int page,int size)
+    public async Task<PagedResult<FoodData>> GetFoodsAsync(int page, int size, string search = null)
+    {
+        var query = _context.Foods.Include(f => f.Components).AsQueryable();
+
+        if (!String.IsNullOrEmpty(search))
         {
-            var totalItems = await _context.Foods.CountAsync();
-
-            var foods = await _context.Foods
-                .Include(f => f.Components)
-                .Skip((page - 1) * size)
-                .Take(size)
-                .ToListAsync();
-
-            return new PagedResult<FoodData>
-            {
-                Items = foods,
-                TotalItems = totalItems,
-                TotalPages = (int)Math.Ceiling(totalItems / (double)size),
-                PageNumber = page,
-                PageSize = size
-            };
+            query = query.Where(f => f.Name.Contains(search));
         }
+
+        var totalItems = await query.CountAsync();
+        
+        var foods = await query
+            .Skip((page - 1) * size)
+            .Take(size)
+            .ToListAsync();
+
+        return new PagedResult<FoodData>
+        {
+            Items = foods,
+            TotalItems = totalItems,
+            TotalPages = (int)Math.Ceiling(totalItems / (double)size),
+            PageNumber = page,
+            PageSize = size            
+        };
+    }
 
         public async Task<FoodData> GetFoodByIdAsync(int id)
         {

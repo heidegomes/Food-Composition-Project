@@ -24,16 +24,19 @@ namespace FoodCompositionScraper.Controllers
 
         // Endpoint para obter todos os dados de alimentos
         [HttpGet] // Rota: /api/food?page=1&size=10
-        public async Task<ActionResult<PagedResult<FoodData>>> GetFoods([FromQuery] int page = 1, [FromQuery] int size = 10)
-        // public async Task<ActionResult<IEnumerable<FoodData>>> GetFoods([FromQuery] int page = 1, [FromQuery] int size = 10)
+        public async Task<ActionResult<PagedResult<FoodData>>> GetFoods(
+            [FromQuery] int page = 1, 
+            [FromQuery] int size = 10, 
+            [FromQuery] string search = null)
         {
+            
             if (page <= 0 || size <= 0)
             {
                 return BadRequest("Os parâmetros 'page' e 'size' devem ser maiores que zero.");
             }
 
             // Verifica se o WebScraperService tem uma lista ou coleção de Foods
-            var pagedResult = await _foodService.GetFoodsAsync(page, size);
+            var pagedResult = await _foodService.GetFoodsAsync(page, size, search);
             if (pagedResult.TotalItems == 0)
             {
                 return NotFound("Nenhum alimento encontrado.");
