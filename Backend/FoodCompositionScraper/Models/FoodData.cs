@@ -1,8 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace FoodCompositionScraper.Models
 {
-    public class Food
+    public class FoodData
     {
-        public int Id { get; set; }
+        [Key]
+        public string Code { get; set; }
+
         public string Name { get; set; }
         public string ScientificName { get; set; }
         public string Group { get; set; }

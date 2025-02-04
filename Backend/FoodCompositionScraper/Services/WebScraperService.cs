@@ -2,35 +2,23 @@ using HtmlAgilityPack;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FoodCompositionScraper.Models;
 
 namespace FoodCompositionScraper.Services
 {
-    public class FoodData
-    {
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string ScientificName { get; set; }
-        public string Group { get; set; }
-        public string Component { get; set; }
-        public string Unit { get; set; }
-        public string ValuePer100g { get; set; }
-        public string StandardDeviation { get; set; }
-        public string MinimumValue { get; set; }
-        public string MaximumValue { get; set; }
-        public string NumberSamples { get; set; }
-        public string Reference { get; set; }
-        public string DataType { get; set; }
-    }
-
     public class WebScraperService
     {
         private readonly string _url = "https://www.tbca.net.br/base-dados/composicao_estatistica.php?pagina=1&atuald=1#";
-        
-        // Definir foodList como variável de instância
-        private List<FoodData> foodList = new List<FoodData>();
+        private readonly FoodService _foodService;
+
+        public WebScraperService(FoodService foodService)
+        {
+            _foodService = foodService;
+        }
 
         public async Task<List<FoodData>> ScrapeFoodDataAsync()
         {
+            var foodList = new List<FoodData>();
             var web = new HtmlWeb();
             var doc = await web.LoadFromWebAsync(_url);
 
@@ -94,20 +82,11 @@ namespace FoodCompositionScraper.Services
                         food.DataType = columns[8].InnerText.Trim();                
                     }      
                 }
-            } 
-            return foodList;
-        }
-        // Método para retornar todos os alimentos
-        public Task<List<FoodData>> GetFoodsAsync()
-        {
-            return Task.FromResult(foodList); // Retorna os alimentos já extraídos
-        }
+            }
 
-        // Método para retornar um alimento específico pelo código
-        public Task<FoodData> GetFoodByIdAsync(string code)
-        {
-            var food = foodList.FirstOrDefault(f => f.Code == code); // Procura pelo código
-            return Task.FromResult(food);
+            await _foodService.AddFoodsAsync(foodList);
+
+            return foodList;
         }
     }
 }

@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using FoodCompositionScraper.Data;
-using Microsoft.Extensions.DependencyInjection;
 using FoodCompositionScraper.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,13 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Registrando o serviço de WebScraperService (use apenas uma linha de registro)
-builder.Services.AddScoped<WebScraperService>();
-
 // Registrando o contexto do banco de dados
 builder.Services.AddDbContext<FoodContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+// Registrando o serviço de WebScraperService (use apenas uma linha de registro)
+builder.Services.AddScoped<WebScraperService>();
+builder.Services.AddScoped<FoodService>();
 
 builder.Services.AddCors(options =>
 {

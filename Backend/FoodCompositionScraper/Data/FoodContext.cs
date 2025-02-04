@@ -5,16 +5,15 @@ namespace FoodCompositionScraper.Data
 {
     public class FoodContext : DbContext
     {
-        public DbSet<Food> Foods { get; set; }
-
         public FoodContext(DbContextOptions<FoodContext> options) : base(options)
         {
         }
+        
+        public DbSet<FoodData> Foods { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            // Você pode configurar entidades aqui, se necessário.
-        }
+        // protected override void OnModelCreating(ModelBuilder modelBuilder)
+        // {
+        //     base.OnModelCreating(modelBuilder);
+        // }
     }
 }
