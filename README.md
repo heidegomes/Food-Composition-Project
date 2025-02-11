@@ -1,6 +1,6 @@
 # Food Composition Project
 
-Este repositório contém o código para um projeto completo de **composição de alimentos**, com um frontend desenvolvido em **Next.js** e **TailwindCSS** e um backend desenvolvido em **C#** utilizando **ASP.NET Core** para scraping de dados.
+Este repositório contém o código para um projeto completo de **composição de alimentos**, com um frontend desenvolvido em **Next.js** e **TailwindCSS** e um backend desenvolvido em **C#** utilizando **ASP.NET Core** para scraping de dados e construção da API.
 
 ## Estrutura do Projeto
 
