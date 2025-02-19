@@ -47,13 +47,13 @@ Antes de começar, certifique-se de ter os seguintes itens instalados:
 
 3. Instale as dependências do projeto. No terminal, navegue até o diretório do projeto e execute:
 
-  ```bash
-  dotnet restore
+   ```bash
+   dotnet restore
 
 4. Construa e execute o projeto:
 
-  ```bash
-  dotnet run
+   ```bash
+   dotnet run
 
 ## Como Usar
 
@@ -61,8 +61,8 @@ Antes de começar, certifique-se de ter os seguintes itens instalados:
 
 2. Atualize os dados do banco com o comando:
 
-  ```bash
-  dotnet ef database update
+   ```bash
+   dotnet ef database update
 
 3. Usando o Postman, faça uma requisicição GET no endpoint http://localhost:5057/scrape-food para executar o scraper.
 
@@ -70,48 +70,49 @@ Antes de começar, certifique-se de ter os seguintes itens instalados:
 
 ## Exemplo de Saída
  
-"code": "BRC1139B",
-    "name": "Cogumelo, assado, s/ óleo, c/ sal (média de diferentes tipos)",
-    "scientificName": "",
-    "group": "Vegetais e derivados",
-    "components": [
-        {
-            "id": 72311,
-            "foodCode": "BRC1139B",
-            "component": "Energia",
-            "unit": "kJ",
-            "valuePer100g": "139",
-            "standardDeviation": "-",
-            "minimumValue": "-",
-            "maximumValue": "-",
-            "numberSamples": "-",
-            "reference": "-",
-            "dataType": "Calculado"
-        },
-        ...
-    ]
+         {
+           "code": "BRC0001A",
+           "name": "Arroz, polido, cru (média de diferentes cultivares), Brasil",
+           "scientificName": "Oryza sativa L.",
+           "group": "Cereais e derivados",
+           "components": [
+             {
+               "id": 10109,
+               "foodCode": "BRC0001A",
+               "component": "Energia",
+               "unit": "kJ",
+               "valuePer100g": "1467",
+               "standardDeviation": "-",
+               "minimumValue": "-",
+               "maximumValue": "-",
+               "numberSamples": "-",
+               "reference": "-",
+               "dataType": "Calculado"
+             },
+             ...
+           ]
+         }
 
 ## Estrutura do Projeto
 
-food-composition-backend/
-│
-├── Controllers/
-│   └── FoodController.cs     # Controlador para manipulação de dados sobre alimentos
-├── Data/
-│   └── FoodContext.cs        # Contexto do banco de dados para alimentos
-├── Migrations/
-│   ├── 20250204023858_InitialCreate.Designer.cs   # Arquivo de migração inicial
-│   ├── 20250204023858_InitialCreate.cs            # Arquivo de migração inicial
-│   └── FoodContextModelSnapshot.cs                # Snapshot do modelo do banco de dados
-├── Models/
-│   └── FoodData.cs          # Modelo de dados para os alimentos
-├── Properties/
-│   └── launchSettings.json  # Arquivo de configurações para o ambiente de desenvolvimento
-├── Services/
-│   ├── FoodService.cs       # Serviço que lida com a lógica de negócios de alimentos
-│   └── WebScraperService.cs # Serviço para web scraping de dados sobre alimentos
-└── food-composition-backend.csproj # Arquivo de projeto do .NET
-
+      food-composition-backend/
+      │
+      ├── Controllers/
+      │   └── FoodController.cs     # Controlador para manipulação de dados sobre alimentos
+      ├── Data/
+      │   └── FoodContext.cs        # Contexto do banco de dados para alimentos
+      ├── Migrations/
+      │   ├── 20250204023858_InitialCreate.Designer.cs   # Arquivo de migração inicial
+      │   ├── 20250204023858_InitialCreate.cs            # Arquivo de migração inicial
+      │   └── FoodContextModelSnapshot.cs                # Snapshot do modelo do banco de dados
+      ├── Models/
+      │   └── FoodData.cs          # Modelo de dados para os alimentos
+      ├── Properties/
+      │   └── launchSettings.json  # Arquivo de configurações para o ambiente de desenvolvimento
+      ├── Services/
+      │   ├── FoodService.cs       # Serviço que lida com a lógica de negócios de alimentos
+      │   └── WebScraperService.cs # Serviço para web scraping de dados sobre alimentos
+      └── food-composition-backend.csproj # Arquivo de projeto do .NET
 
 ## Contribuindo
 
