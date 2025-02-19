@@ -2,46 +2,50 @@
 import { useEffect, useState } from "react";
 import FoodCard from "@/app/_components/FoodCard";
 import { FoodData } from "@/app/types";
+import { useDebounce } from "@/app/hooks/useDebounce"; 
 
 export default function HomePage() {
+  const [loading, setLoading] = useState<boolean>(false); 
+
   const [foodData, setFoodData] = useState<FoodData[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [page, setPage] = useState<number>(1); // Página atual
-  const [pageSize] = useState<number>(10);     // Itens por página
-  const [totalPages, setTotalPages] = useState<number>(1); // Total de páginas
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const [page, setPage] = useState<number>(1);
+  const [pageSize] = useState<number>(10);
+  const [totalPages, setTotalPages] = useState<number>(1);
 
-  // Função para buscar dados com paginação
   const fetchData = async () => {
+    setLoading(true);
     try {
-      const query = `page=${page}&size=${pageSize}${searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : ''}`;
+      const query = `page=${page}&size=${pageSize}${debouncedSearchTerm ? `&search=${encodeURIComponent(debouncedSearchTerm)}` : ''}`;
       const response = await fetch(`http://localhost:5057/api/food?${query}`);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+
+      if (response.status === 404) {
+        setFoodData([]);
+        setTotalPages(1);
+        return;
       }
+
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
       const data = await response.json();
-
-      // Captura os cabeçalhos de paginação
       const totalPagesHeader = response.headers.get("X-Total-Pages");
-      setTotalPages(data.totalPages || Number(totalPagesHeader) || 1);
 
+      setTotalPages(data.totalPages || Number(totalPagesHeader) || 1);
       setFoodData(data.items);
     } catch (error) {
       console.error("Erro ao buscar os dados:", error);
+      setFoodData([]);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Carrega os dados sempre que a página muda
+
   useEffect(() => {
     fetchData();
-  }, [page, searchTerm]);
+  }, [page, debouncedSearchTerm]); 
 
-  // Filtra os alimentos pelo termo de pesquisa
-  const filteredFoods = foodData.filter(food =>
-    food.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  // Função para mudar a página
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
       setPage(newPage);
@@ -62,9 +66,15 @@ export default function HomePage() {
       />
 
       <div className="flex flex-col gap-6">
-        {filteredFoods.map((food) => (
-          <FoodCard key={food.code} food={food} />
-        ))}
+        {loading ? (
+          <p className="text-center text-green-500 font-bold mt-4">Carregando...</p>
+        ) : foodData.length > 0 ? (
+          foodData.map((food) => <FoodCard key={food.code} food={food} />)
+        ) : searchTerm ? (
+          <p className="text-center text-red-500 font-bold mt-4">
+            `Nenhum alimento encontrado para {searchTerm}`
+          </p>
+        ) : null}
       </div>
 
       {/* Paginação */}
@@ -91,4 +101,4 @@ export default function HomePage() {
       </div>
     </div>
   );
-};
+}
