@@ -72,7 +72,7 @@ export default function HomePage() {
           foodData.map((food) => <FoodCard key={food.code} food={food} />)
         ) : searchTerm ? (
           <p className="text-center text-red-500 font-bold mt-4">
-            `Nenhum alimento encontrado para {searchTerm}`
+                Nenhum alimento encontrado para {searchTerm}
           </p>
         ) : null}
       </div>
