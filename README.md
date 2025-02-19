@@ -1,6 +1,6 @@
 # Food Composition Project
 
-Este repositório contém o código para um projeto completo de **composição de alimentos**, com um frontend desenvolvido em **Next.js** e **TailwindCSS** e um backend desenvolvido em **C#** utilizando **ASP.NET Core** para scraping de dados.
+Este repositório contém o código para um projeto completo de **composição de alimentos**, com um frontend desenvolvido em **Next.js** e **TailwindCSS** e um backend desenvolvido em **C#** utilizando **ASP.NET Core** para scraping de dados e construção da API.
 
 ## Estrutura do Projeto
 
@@ -24,7 +24,7 @@ A estrutura do projeto é organizada da seguinte forma:
 ## Pré-Requisitos
 
 ### Backend
-O backend é uma aplicação de **web scraping** que coleta dados sobre a composição de alimentos e os armazena num banco de dados SQLite. Para que o frontend funcione corretamente, o backend precisa estar rodando. Consulte o [README do backend](food-composition-backend/README.md) para instruções de instalação e execução.
+O backend é uma aplicação de **web scraping** que coleta dados sobre a composição de alimentos e os armazena num banco de dados SQLite. Para que o frontend funcione corretamente, o backend precisa estar rodando. Consulte o [README do backend](https://github.com/heidegomes/Food-Composition-Project/blob/main/Backend/FoodCompositionScraper/README.md) para instruções de instalação e execução.
 
 ### Frontend
 O frontend se conecta ao backend para exibir as informações de forma interativa. Certifique-se de que o backend esteja em execução antes de iniciar o frontend.

@@ -17,26 +17,25 @@ Antes de começar, certifique-se de que o backend esteja rodando. O backend é r
 
 ### Backend
 
-O backend é uma aplicação de **web scraping** que coleta dados sobre a composição de alimentos e armazena essas informações para análise posterior. Ele foi desenvolvido utilizando **C#** com a biblioteca `HtmlAgilityPack`. Para mais detalhes sobre a instalação e execução do backend, consulte o [README do backend](backend/README.md).
+O backend é uma aplicação de **web scraping** que coleta dados sobre a composição de alimentos e armazena essas informações para análise posterior. Ele foi desenvolvido utilizando **C#** com a biblioteca `HtmlAgilityPack`. Para mais detalhes sobre a instalação e execução do backend, consulte o [README do backend](https://github.com/heidegomes/Food-Composition-Project/blob/main/Backend/FoodCompositionScraper/README.md).
 
 ## Instalação (Frontend)
 
 1. Clone o repositório para sua máquina local:
-
    ```bash
    git clone https://github.com/seu-usuario/food-composition-frontend.git
 
 2. Navegue até o diretório do projeto:
    ```bash
-  cd food-composition-frontend 
+   cd food-composition-frontend 
 
-3. Instale as dependências do projeto:
+4. Instale as dependências do projeto:
    ```bash
    npm install
 
-4. Execute o servidor de desenvolvimento:
-  ```bash
-  npm run dev
+5. Execute o servidor de desenvolvimento:
+   ```bash
+   npm run dev
 
   A aplicação estará disponível em http://localhost:3000.
 
@@ -51,30 +50,30 @@ O backend é uma aplicação de **web scraping** que coleta dados sobre a compos
 
 A estrutura de pastas do projeto é organizada da seguinte forma:
 
-/food-composition-frontend
-├── /src                  # Contém os arquivos principais do projeto
-│   ├── /app              # Contém as páginas e componentes principais da aplicação
-│   │   ├── /_components  # Componentes reutilizáveis
-│   │   │   ├── FoodCard.tsx  # Componente que exibe informações de um alimento
-│   │   │   ├── Footer.tsx    # Componente do rodapé
-│   │   │   └── Header.tsx    # Componente do cabeçalho
-│   │   ├── /aboutUs        # Página "Sobre Nós"
-│   │   │   └── page.tsx    # Arquivo que contém o conteúdo da página sobre nós
-│   │   ├── /api            # Endpoints de API
-│   │   │   └── /food       # Rota específica para alimentação
-│   │   │       └── route.ts    # Lógica da API relacionada à comida
-│   │   ├── /contact        # Página de Contato
-│   │   │   └── page.tsx    # Arquivo que contém o conteúdo da página de contato
-│   │   ├── /food           # Páginas relacionadas a alimentos
-│   │   │   └── /[code]     # Página específica de um alimento com código
-│   │   │       └── page.tsx  # Arquivo da página detalhada do alimento
-│   │   ├── favicon.ico     # Ícone do site
-│   │   ├── globals.css     # Arquivo de estilos globais
-│   │   ├── layout.tsx      # Layout principal da aplicação
-│   │   ├── page.tsx        # Página inicial (home)
-│   │   └── types.ts        # Tipos TypeScript para a aplicação
-├── package.json           # Arquivo de dependências e scripts do projeto
-└── tailwind.config.js     # Arquivo de configuração do TailwindCSS
+      /food-composition-frontend
+      ├── /src                  # Contém os arquivos principais do projeto
+      │   ├── /app              # Contém as páginas e componentes principais da aplicação
+      │   │   ├── /_components  # Componentes reutilizáveis
+      │   │   │   ├── FoodCard.tsx  # Componente que exibe informações de um alimento
+      │   │   │   ├── Footer.tsx    # Componente do rodapé
+      │   │   │   └── Header.tsx    # Componente do cabeçalho
+      │   │   ├── /aboutUs        # Página "Sobre Nós"
+      │   │   │   └── page.tsx    # Arquivo que contém o conteúdo da página sobre nós
+      │   │   ├── /api            # Endpoints de API
+      │   │   │   └── /food       # Rota específica para alimentação
+      │   │   │       └── route.ts    # Lógica da API relacionada à comida
+      │   │   ├── /contact        # Página de Contato
+      │   │   │   └── page.tsx    # Arquivo que contém o conteúdo da página de contato
+      │   │   ├── /food           # Páginas relacionadas a alimentos
+      │   │   │   └── /[code]     # Página específica de um alimento com código
+      │   │   │       └── page.tsx  # Arquivo da página detalhada do alimento
+      │   │   ├── favicon.ico     # Ícone do site
+      │   │   ├── globals.css     # Arquivo de estilos globais
+      │   │   ├── layout.tsx      # Layout principal da aplicação
+      │   │   ├── page.tsx        # Página inicial (home)
+      │   │   └── types.ts        # Tipos TypeScript para a aplicação
+      ├── package.json           # Arquivo de dependências e scripts do projeto
+      └── tailwind.config.js     # Arquivo de configuração do TailwindCSS
 
 
 
